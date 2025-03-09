@@ -41,30 +41,61 @@ docker run -d -p 3000:3000 malotian/project-view-helper:latest
 Here's an example of YAML data you can visualize:
 
 ```yaml
-sprints:
-  - items:
-      - label: "Task 1"
-        type: "task"
-        contents:
-          - "Do this"
-          - "And that"
-      - label: "Milestone 1"
-        type: "milestone"
-        contents:
-          - "Complete feature X"
-  - items:
-      - label: "Task A"
-        type: "task"
-        contents:
-          - "Prepare report"
-      - label: "Task B"
-        type: "task"
-        contents:
-          - "Review code"
-      - label: "Implementation A"
-        type: "implementation"
-        contents:
-          - "Deploy update"
+- type: sprint
+  items:
+    - label: "Advisory"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Architecture"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "PMO"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Offerings"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Products & Services"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Reqs. Complete"
+      contents:
+        - "Project Documentation"
+        - "Sharepoint Page"
+      type: milestone
+
+- type: sprint
+  items:
+    - label: "Process/Methodology"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Program Visualization"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Customer Portal"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "High Level Design"
+      contents:
+        - "Project Documentation"
+        - "Sharepoint Page"
+      type: milestone
 ```
 
 Enjoy visualizing your YAML workflows effortlessly!
