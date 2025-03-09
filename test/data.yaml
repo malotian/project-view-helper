@@ -1,0 +1,285 @@
+- type: sprint
+  items:
+    - label: "Advisory"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Architecture"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "PMO"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Offerings"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Products & Services"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "Reqs. Complete"
+      contents:
+        - "Project Documentation"
+        - "Sharepoint Page"
+      type: milestone
+
+- type: sprint
+  items:
+    - label: "Process/Methodology"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Program Visualization"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Customer Portal"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: platform
+    - label: "High Level Design"
+      contents:
+        - "Project Documentation"
+        - "Sharepoint Page"
+      type: milestone
+
+- type: sprint
+  items:
+    - label: "Guiding Principle"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "RCA Output"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Reviewer"
+      contents:
+        - "Knowledge Mgmt Role"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Contributor"
+      contents:
+        - "Knowledge Mgmt Role"
+        - "Sharepoint Page"
+      type: feature
+
+- type: sprint
+  items:
+    - label: "New Customer Page"
+      contents:
+        - "Knowledge Mgmt Process"
+        - "Use Case"
+      type: usecase
+    - label: "Review RCA"
+      contents:
+        - "Knowledge Mgmt Process"
+        - "Use Case"
+      type: usecase
+    - label: "Knowledge States"
+      contents:
+        - "Knowledge Feature"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Release 1"
+      contents:
+        - "Framework Release"
+        - "30 Days - Fixed"
+      type: implementation
+
+- type: sprint
+  items:
+    - label: "Stewardship"
+      contents:
+        - "Knowledge Mgmt Role"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Taxanomic Index"
+      contents:
+        - "Knowledge Feature"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Project Site Template"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site Template"
+      type: platform
+
+- type: sprint
+  items:
+    - label: "Attribution"
+      contents:
+        - "Knowledge Feature"
+        - "Sharepoint Page"
+      type: feature
+    - label: "SRT Results"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Peer Review Results"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Self-Paced Training"
+      contents:
+        - "Project Documentation"
+        - "Sharepoint Page"
+      type: milestone
+
+- type: sprint
+  items:
+    - label: "Consuct Solution RT"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+
+- type: sprint
+  items:
+    - label: "Deliverable Templates"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Narrative"
+      contents:
+        - "Knowledge Mgmt Feature"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Platform Alignment"
+      contents:
+        - "Knowledge Mgmt Role"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Thought Leadership Artifact"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Release 2"
+      contents:
+        - "Features Release"
+        - "60 Days - Fixed"
+      type: implementation
+
+- type: sprint
+  items:
+    - label: "Conduct Workstream Planning"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "Project Visualization"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Customer Read-In Packet"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+    - label: "Platform Specific Guidance"
+      contents:
+        - "Knowledge Type"
+        - "Sharepoint Page Template"
+      type: type
+
+- type: sprint
+  items:
+    - label: "Practitioners"
+      contents:
+        - "Knowledge Mgmt Role"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Depricate GP Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "Update GP Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "New GP Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "Release 3"
+      contents:
+        - "Features Release"
+        - "75 Days - Fixed"
+      type: implementation
+
+- type: sprint
+  items:
+    - label: "IAM Terminology Guide"
+      contents:
+        - "Knowledge Reference"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Update PSG Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "New PSG Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "Update Terminology Request"
+      contents:
+        - "Knowledge Mgmt Process"
+        - "Use Case"
+      type: usecase
+
+- type: sprint
+  items:
+    - label: "New Terminology Request"
+      contents:
+        - "Knowledge Mgmt Process"
+        - "Use Case"
+      type: usecase
+    - label: "Visual Design Standard"
+      contents:
+        - "Style Guide"
+        - "Sharepoint Page"
+      type: feature
+    - label: "Deprecate PSG Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "Update CRP Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "New CRP Artifact"
+      contents:
+        - "CM Platform"
+        - "Sharepoint Site"
+      type: usecase
+    - label: "Release 4"
+      contents:
+        - "Features Release"
+        - "90 Days - Fixed"
+      type: implementation
