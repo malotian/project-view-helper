@@ -1,7 +1,7 @@
 {
-    "name": "yaml-transform-tabulator",
+    "name": "project-view-helper",
     "version": "1.0.0",
-    "description": "A NodeJS app that transforms YAML data and displays it in a Tabulator table",
+    "description": "A NodeJS app that transforms YAML data and displays nice view",
     "main": "server.js",
     "scripts": {
       "start": "node server.js"
