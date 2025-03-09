@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YAML Transformer with Tabulator</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Load js-yaml -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <!-- Tabulator CSS -->
+  <link href="https://unpkg.com/tabulator-tables@5.2.7/dist/css/tabulator.min.css" rel="stylesheet">
+  <style>
+    /* Additional Tabulator styling */
+    #wbs-table {
+      margin: 20px;
+    }
+    .tabulator,
+    .tabulator .tabulator-header,
+    .tabulator .tabulator-tableHolder,
+    .tabulator .tabulator-row,
+    .tabulator .tabulator-cell {
+      border: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="leftPane">
+      <textarea id="yamlInput" placeholder="Paste or write YAML here..."></textarea>
+    </div>
+    <div id="divider"></div>
+    <div id="rightPane">
+      <div id="wbs-table">Transformed output will appear here...</div>
+    </div>
+  </div>
+  <!-- Tabulator JS -->
+  <script src="https://unpkg.com/tabulator-tables@5.2.7/dist/js/tabulator.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

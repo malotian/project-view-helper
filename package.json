@@ -1,0 +1,13 @@
+{
+    "name": "yaml-transform-tabulator",
+    "version": "1.0.0",
+    "description": "A NodeJS app that transforms YAML data and displays it in a Tabulator table",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
+  
