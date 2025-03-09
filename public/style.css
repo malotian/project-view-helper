@@ -1,45 +1,75 @@
+/* public/style.css */
+
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: sans-serif;
-  }
-  
-  #container {
-    display: flex;
-    height: 100vh;
-  }
-  
-  #leftPane, #rightPane {
-    height: 100%;
-    overflow: auto;
-  }
-  
-  #leftPane {
-    width: 50%;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
-  }
-  
-  #rightPane {
-    width: 50%;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  
-  #yamlInput {
-    width: 100%;
-    height: 100%;
-    border: none;
-    resize: none;
-    font-family: monospace;
-    font-size: 14px;
-  }
-  
-  #divider {
-    width: 5px;
-    cursor: col-resize;
-    background-color: #ddd;
-  }
-  
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+#container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left pane styling */
+#leftPane {
+  width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+/* When left pane is collapsed */
+#leftPane.collapsed {
+  width: 0;
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+/* Divider styling */
+#divider {
+  width: 30px; /* Increased width to fit the toggle button */
+  background-color: #ddd;
+  cursor: col-resize;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease;
+}
+
+/* Toggle button styling */
+#toggleBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Right pane styling */
+#rightPane {
+  width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+  transition: width 0.3s ease;
+}
+
+/* Textarea styling */
+#yamlInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+/* When left pane is collapsed, hide the resizable divider (optional) */
+#leftPane.collapsed + #divider {
+  cursor: pointer;
+}

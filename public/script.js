@@ -1,137 +1,94 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     const yamlInput = document.getElementById("yamlInput");
-
+    const toggleBtn = document.getElementById("toggleBtn");
+    const leftPane = document.getElementById("leftPane");
+    const rightPane = document.getElementById("rightPane");
+    const divider = document.getElementById("divider");
+  
     // --- Transformation Function (as provided) ---
-    // Updated transform function remains unchanged.
     function transform(sprints) {
-        // Process each sprint to separate effective items and a reserved last item.
-        const processed = sprints.map(sprint => {
-            const items = sprint.items;
-            const totalItems = items.length;
-            let reserved = null;
-            let effectiveCount = totalItems;
-
-            // If the last item is of a reserved type, separate it.
-            if (totalItems > 0) {
-                const lastItem = items[totalItems - 1];
-                if (lastItem && (lastItem.type === "milestone" || lastItem.type === "implementation")) {
-                    reserved = lastItem;
-                    effectiveCount = totalItems - 1; // Reserve the last item.
-                }
-            }
-            return { effectiveCount, reserved, items };
-        });
-
-        // Determine the maximum number of main rows (based on effective items).
-        const maxRows = Math.max(...processed.map(p => p.effectiveCount));
-        const rows = [];
-
-        // Build main rows by bottom-aligning each sprint's effective items.
-        for (let rowIndex = 0; rowIndex < maxRows; rowIndex++) {
-            const row = { id: rowIndex + 1 };
-
-            processed.forEach((p, sprintIndex) => {
-                // Calculate how many top cells should be empty for bottom alignment.
-                const topPadding = maxRows - p.effectiveCount;
-                let cell = null;
-                // Only assign a cell if we've passed the padding rows.
-                if (rowIndex >= topPadding) {
-                    const itemIndex = rowIndex - topPadding;
-                    if (itemIndex < p.effectiveCount) {
-                        cell = p.items[itemIndex];
-                    }
-                }
-                row['sprint-' + (sprintIndex + 1)] = cell;
-            });
-
-            rows.push(row);
+      const processed = sprints.map(sprint => {
+        const items = sprint.items;
+        const totalItems = items.length;
+        let reserved = null;
+        let effectiveCount = totalItems;
+        if (totalItems > 0) {
+          const lastItem = items[totalItems - 1];
+          if (lastItem && (lastItem.type === "milestone" || lastItem.type === "implementation")) {
+            reserved = lastItem;
+            effectiveCount = totalItems - 1;
+          }
         }
-
-        // Build the reserved row with the separated last items.
-        const reservedRow = { id: maxRows + 1 };
+        return { effectiveCount, reserved, items };
+      });
+  
+      const maxRows = Math.max(...processed.map(p => p.effectiveCount));
+      const rows = [];
+      for (let rowIndex = 0; rowIndex < maxRows; rowIndex++) {
+        const row = { id: rowIndex + 1 };
         processed.forEach((p, sprintIndex) => {
-            reservedRow['sprint-' + (sprintIndex + 1)] = p.reserved;
+          const topPadding = maxRows - p.effectiveCount;
+          let cell = null;
+          if (rowIndex >= topPadding) {
+            const itemIndex = rowIndex - topPadding;
+            if (itemIndex < p.effectiveCount) {
+              cell = p.items[itemIndex];
+            }
+          }
+          row['sprint-' + (sprintIndex + 1)] = cell;
         });
-        rows.push(reservedRow);
-
-        return rows;
+        rows.push(row);
+      }
+      const reservedRow = { id: maxRows + 1 };
+      processed.forEach((p, sprintIndex) => {
+        reservedRow['sprint-' + (sprintIndex + 1)] = p.reserved;
+      });
+      rows.push(reservedRow);
+      return rows;
     }
     // --- End Transformation Function ---
-
-    // Global Tabulator table instance
+  
     let table = new Tabulator("#wbs-table", {
-        data: [],
-        headerVisible: false,
+      data: [],
+      headerVisible: false,
+      layout: "fitColumns",
+      height: "100%",
     });
-
-    // Helper function to generate columns dynamically based on keys of the first row
+  
     function generateColumns(rowObj) {
-        let columns = [];
-        for (let key in rowObj) {
-            if (key === 'id') {
-                // Optionally hide the id column
-                columns.push({ title: "Row ID", field: key, visible: false });
-            } else {
-                columns.push({
-                    title: key,
-                    field: key,
-                    formatter: function (cell) {
-                        const cellData = cell.getValue();
-                        // Define styling for each type
-                        const colorMap = {
-                            platform: {
-                                topLabel: "Platform",
-                                topBarColor: "#FFBE00",
-                                backgroundColor: "#FFF0C2",
-                            },
-                            milestone: {
-                                topLabel: "Milestone",
-                                topBarColor: "#7CA948",
-                                backgroundColor: "#E8F3E8",
-                            },
-                            type: {
-                                topLabel: "Type",
-                                topBarColor: "#4DA6BD",
-                                backgroundColor: "#D6ECEE",
-                            },
-                            usecase: {
-                                topLabel: "Use Case/Process",
-                                topBarColor: "#F58220",
-                                backgroundColor: "#FFE3CF",
-                            },
-                            feature: {
-                                topLabel: "Feature",
-                                topBarColor: "#B399C3",
-                                backgroundColor: "#F2EDF6",
-                            },
-                            implementation: {
-                                topLabel: "Implementation",
-                                topBarColor: "#C1483C",
-                                backgroundColor: "#FDE8E8",
-                            },
-                        };
-
-                        if (!cellData) return "";
-
-                        // Fallback style if type is not recognized
-                        const fallback = {
-                            topLabel: cellData.type || "",
-                            topBarColor: "#999",
-                            backgroundColor: "#f9f9f9",
-                        };
-
-                        const style = colorMap[cellData.type] || fallback;
-
-                        // Build main text from label and contents
-                        let mainText = "";
-                        if (cellData.label) {
-                            mainText += `<div style="font-weight:bold;">${cellData.label}</div>`;
-                        }
-                        if (cellData.contents && Array.isArray(cellData.contents)) {
-                            mainText += `<div>${cellData.contents.join("</div><div>")}</div>`;
-                        }
-
-                        return `
+      let columns = [];
+      for (let key in rowObj) {
+        if (key === 'id') {
+          columns.push({ title: "Row ID", field: key, visible: false });
+        } else {
+          columns.push({
+            title: key,
+            field: key,
+            formatter: function(cell) {
+              const cellData = cell.getValue();
+              const colorMap = {
+                platform: { topLabel: "Platform", topBarColor: "#FFBE00", backgroundColor: "#FFF0C2" },
+                milestone: { topLabel: "Milestone", topBarColor: "#7CA948", backgroundColor: "#E8F3E8" },
+                type: { topLabel: "Type", topBarColor: "#4DA6BD", backgroundColor: "#D6ECEE" },
+                usecase: { topLabel: "Use Case/Process", topBarColor: "#F58220", backgroundColor: "#FFE3CF" },
+                feature: { topLabel: "Feature", topBarColor: "#B399C3", backgroundColor: "#F2EDF6" },
+                implementation: { topLabel: "Implementation", topBarColor: "#C1483C", backgroundColor: "#FDE8E8" },
+              };
+              if (!cellData) return "";
+              const fallback = {
+                topLabel: cellData.type || "",
+                topBarColor: "#999",
+                backgroundColor: "#f9f9f9",
+              };
+              const style = colorMap[cellData.type] || fallback;
+              let mainText = "";
+              if (cellData.label) {
+                mainText += `<div style="font-weight:bold;">${cellData.label}</div>`;
+              }
+              if (cellData.contents && Array.isArray(cellData.contents)) {
+                mainText += `<div>${cellData.contents.join("</div><div>")}</div>`;
+              }
+              return `
                 <div style="text-align:center; font-family: sans-serif;">
                   <div style="color:${style.topBarColor}; font-weight:bold; margin-bottom:20px;">
                     ${style.topLabel}
@@ -164,70 +121,79 @@ document.addEventListener("DOMContentLoaded", function () {
                   </div>
                 </div>
               `;
-                    }
-                });
             }
+          });
         }
-        return columns;
+      }
+      return columns;
     }
-
-    // Update preview: parse YAML, transform data, and update Tabulator table
+  
     function updatePreview() {
-        const yamlText = yamlInput.value;
-        try {
-            //console.log(yamlText);
-            const data = jsyaml.load(yamlText);
-            if (data && data) {
-                const transformedRows = transform(data);
-                // Dynamically generate columns if data is available
-                if (transformedRows.length > 0) {
-                    const columns = generateColumns(transformedRows[0]);
-                    table.setColumns(columns);
-                }
-                table.setData(transformedRows);
-            } else {
-                table.clearData();
-                document.getElementById("wbs-table").innerHTML = "<p>No 'sprints' key found in YAML data.</p>";
-            }
-        } catch (e) {
-            table.clearData();
-            document.getElementById("wbs-table").innerHTML = "<p style='color: red;'>Invalid YAML: " + e.message + "</p>";
+      const yamlText = yamlInput.value;
+      try {
+        const data = jsyaml.load(yamlText);
+        if (data && data) {
+          const transformedRows = transform(data);
+          if (transformedRows.length > 0) {
+            const columns = generateColumns(transformedRows[0]);
+            table.setColumns(columns);
+          }
+          table.setData(transformedRows);
+        } else {
+          table.clearData();
+          document.getElementById("wbs-table").innerHTML = "<p>No 'sprints' key found in YAML data.</p>";
         }
+      } catch (e) {
+        table.clearData();
+        document.getElementById("wbs-table").innerHTML = "<p style='color: red;'>Invalid YAML: " + e.message + "</p>";
+      }
     }
-
-    // Listen for changes in the YAML textarea
+  
     yamlInput.addEventListener("input", updatePreview);
-
-    // --- Draggable Divider Functionality ---
-    const divider = document.getElementById("divider");
-    const leftPane = document.getElementById("leftPane");
-    const rightPane = document.getElementById("rightPane");
-
+  
     let isDragging = false;
-
-    divider.addEventListener("mousedown", function () {
-        isDragging = true;
-        document.body.style.cursor = "col-resize";
+    divider.addEventListener("mousedown", function(e) {
+      if (leftPane.classList.contains("collapsed")) return;
+      isDragging = true;
+      document.body.style.cursor = "col-resize";
     });
-
-    document.addEventListener("mousemove", function (e) {
-        if (!isDragging) return;
-        let containerOffsetLeft = document.getElementById("container").offsetLeft;
-        let pointerRelativeXpos = e.clientX - containerOffsetLeft;
-        let containerWidth = document.getElementById("container").clientWidth;
-        let leftWidthPercent = (pointerRelativeXpos / containerWidth) * 100;
-
-        if (leftWidthPercent < 10) leftWidthPercent = 10;
-        if (leftWidthPercent > 90) leftWidthPercent = 90;
-
-        leftPane.style.width = leftWidthPercent + "%";
-        rightPane.style.width = (100 - leftWidthPercent - 0.5) + "%";
+  
+    document.addEventListener("mousemove", function(e) {
+      if (!isDragging) return;
+      let containerOffsetLeft = document.getElementById("container").offsetLeft;
+      let pointerRelativeXpos = e.clientX - containerOffsetLeft;
+      let containerWidth = document.getElementById("container").clientWidth;
+      let leftWidthPercent = (pointerRelativeXpos / containerWidth) * 100;
+      if (leftWidthPercent < 10) leftWidthPercent = 10;
+      if (leftWidthPercent > 90) leftWidthPercent = 90;
+      leftPane.style.width = leftWidthPercent + "%";
+      rightPane.style.width = (100 - leftWidthPercent - 3) + "%"; // account for divider width
     });
-
-    document.addEventListener("mouseup", function () {
-        if (isDragging) {
-            isDragging = false;
-            document.body.style.cursor = "default";
-        }
+  
+    document.addEventListener("mouseup", function() {
+      if (isDragging) {
+        isDragging = false;
+        document.body.style.cursor = "default";
+      }
     });
-});
+  
+    // Toggle collapse/expand with arrow buttons
+    toggleBtn.addEventListener("click", function() {
+      if (leftPane.classList.contains("collapsed")) {
+        // Expand left pane
+        leftPane.classList.remove("collapsed");
+        leftPane.style.width = "50%";
+        rightPane.style.width = "50%";
+        toggleBtn.innerHTML = "&lt;"; // Show collapse arrow (<)
+        divider.style.cursor = "col-resize";
+      } else {
+        // Collapse left pane
+        leftPane.classList.add("collapsed");
+        leftPane.style.width = "0";
+        rightPane.style.width = "calc(100% - 30px)"; // Full width minus divider width
+        toggleBtn.innerHTML = "&gt;"; // Show expand arrow (>)
+        divider.style.cursor = "pointer";
+      }
+    });
+  });
+  
