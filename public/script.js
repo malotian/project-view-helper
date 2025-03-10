@@ -56,13 +56,79 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   // --- End Transformation Function ---
 
-  let table = new Tabulator("#wbs-table", {
+  let table1 = new Tabulator("#wbs1-table", {
     data: [],
     headerVisible: false,
     layout: "fitColumns",
-    height: "100%",
   });
+ 
+  let table2 = new Tabulator("#wbs2-table", {
+    data: [],
+    headerVisible: false,
+    layout: "fitColumns",
+  })
 
+  function formatCellContent(cellData) {
+    const colorMap = {
+      platform: { topLabel: "Platform", topBarColor: "#FFBE00", backgroundColor: "#FFF0C2" },
+      milestone: { topLabel: "Milestone", topBarColor: "#7CA948", backgroundColor: "#E8F3E8" },
+      type: { topLabel: "Type", topBarColor: "#4DA6BD", backgroundColor: "#D6ECEE" },
+      usecase: { topLabel: "Use Case/Process", topBarColor: "#F58220", backgroundColor: "#FFE3CF" },
+      feature: { topLabel: "Feature", topBarColor: "#B399C3", backgroundColor: "#F2EDF6" },
+      implementation: { topLabel: "Implementation", topBarColor: "#C1483C", backgroundColor: "#FDE8E8" },
+    };
+  
+    const fallback = {
+      topLabel: cellData.type || "",
+      topBarColor: "#999",
+      backgroundColor: "#f9f9f9",
+    };
+  
+    const style = colorMap[cellData.type] || fallback;
+    let mainText = "";
+    if (cellData.label) {
+      mainText += `<div style="font-weight:bold;">${cellData.label}</div>`;
+    }
+    if (cellData.contents && Array.isArray(cellData.contents)) {
+      mainText += `<div>${cellData.contents.join("</div><div>")}</div>`;
+    }
+  
+    return `
+      <div style="text-align:center; font-family: sans-serif; width: 100%; height: 100%;">
+        <div style="color:${style.topBarColor}; font-weight:bold; margin-bottom:20px;">
+          ${style.topLabel}
+        </div>
+        <div style="display:block; position:relative; width:100%;">
+          <div style="background-color:${style.topBarColor};
+                      width:100%;
+                      height:20px;
+                      border-top-left-radius:5px;
+                      border-top-right-radius:5px;
+                      position:relative;">
+            <div style="width:0;
+                        height:0;
+                        border-left:10px solid transparent;
+                        border-right:10px solid transparent;
+                        border-bottom:10px solid ${style.topBarColor};
+                        position:absolute;
+                        top:-10px;
+                        left:calc(50% - 10px);">
+            </div>
+          </div>
+          <div style="background-color:${style.backgroundColor};
+                      padding:10px;
+                      border:1px solid ${style.topBarColor};
+                      border-bottom-left-radius:5px;
+                      border-bottom-right-radius:5px;
+                      width:100%;
+                      box-sizing: border-box;">
+            ${mainText}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
   function generateColumns(rowObj) {
     let columns = [];
     for (let key in rowObj) {
@@ -74,68 +140,22 @@ document.addEventListener("DOMContentLoaded", function() {
           field: key,
           formatter: function(cell) {
             const cellData = cell.getValue();
-            const colorMap = {
-              platform: { topLabel: "Platform", topBarColor: "#FFBE00", backgroundColor: "#FFF0C2" },
-              milestone: { topLabel: "Milestone", topBarColor: "#7CA948", backgroundColor: "#E8F3E8" },
-              type: { topLabel: "Type", topBarColor: "#4DA6BD", backgroundColor: "#D6ECEE" },
-              usecase: { topLabel: "Use Case/Process", topBarColor: "#F58220", backgroundColor: "#FFE3CF" },
-              feature: { topLabel: "Feature", topBarColor: "#B399C3", backgroundColor: "#F2EDF6" },
-              implementation: { topLabel: "Implementation", topBarColor: "#C1483C", backgroundColor: "#FDE8E8" },
-            };
             if (!cellData) return "";
-            const fallback = {
-              topLabel: cellData.type || "",
-              topBarColor: "#999",
-              backgroundColor: "#f9f9f9",
-            };
-            const style = colorMap[cellData.type] || fallback;
-            let mainText = "";
-            if (cellData.label) {
-              mainText += `<div style="font-weight:bold;">${cellData.label}</div>`;
-            }
-            if (cellData.contents && Array.isArray(cellData.contents)) {
-              mainText += `<div>${cellData.contents.join("</div><div>")}</div>`;
-            }
-            return `
-              <div style="text-align:center; font-family: sans-serif; width: 100%; height: 100%;">
-                <div style="color:${style.topBarColor}; font-weight:bold; margin-bottom:20px;">
-                  ${style.topLabel}
-                </div>
-                <div style="display:block; position:relative; width:100%;">
-                  <div style="background-color:${style.topBarColor};
-                              width:100%;
-                              height:20px;
-                              border-top-left-radius:5px;
-                              border-top-right-radius:5px;
-                              position:relative;">
-                    <div style="width:0;
-                                height:0;
-                                border-left:10px solid transparent;
-                                border-right:10px solid transparent;
-                                border-bottom:10px solid ${style.topBarColor};
-                                position:absolute;
-                                top:-10px;
-                                left:calc(50% - 10px);">
-                    </div>
-                  </div>
-                  <div style="background-color:${style.backgroundColor};
-                              padding:10px;
-                              border:1px solid ${style.topBarColor};
-                              border-bottom-left-radius:5px;
-                              border-bottom-right-radius:5px;
-                              width:100%;
-                              box-sizing: border-box;">
-                    ${mainText}
-                  </div>
-                </div>
-              </div>
-            `;
+            return formatCellContent(cellData);
+          },
+          // Using Tabulator's tooltip callback to return a custom HTML tooltip
+          tooltip: function(e, cell, onRendered) {
+            const cellData = cell.getValue();
+            if (!cellData) return "";
+            // Wrap the formatted content in a container that scales the font size to 150%
+            return `<div style="font-size:300%; width:100%;">${formatCellContent(cellData)}</div>`;
           }
         });
       }
     }
     return columns;
   }
+  
 
   function updatePreview() {
     const yamlText = codeMirrorEditor.getValue();
@@ -147,17 +167,26 @@ document.addEventListener("DOMContentLoaded", function() {
         const transformedRows = transform(data);
         if (transformedRows.length > 0) {
           const columns = generateColumns(transformedRows[0]);
-          table.setColumns(columns);
+          table1.setColumns(columns);
+          table2.setColumns(columns);
         }
-        table.setData(transformedRows);
+
+        const dataForTable1 = transformedRows.slice(0, -1);
+        // Only the last row for table2 (wrapped in an array):
+        const dataForTable2 = [transformedRows[transformedRows.length - 1]];
+
+        table1.setData(dataForTable1);
+        table2.setData(dataForTable2);
         // Clear any previous error messages
         if (errorElem) errorElem.innerHTML = "";
       } else {
-        table.clearData();
+        table1.clearData();
+        table2.clearData();
         if (errorElem) errorElem.textContent = "No 'sprint' found in YAML data.";
       }
     } catch (e) {
-      table.clearData();
+      table1.clearData();
+      table2.clearData();
       if (errorElem) errorElem.innerHTML = "<p class='text-danger'>Invalid YAML: " + e.message + "</p>";
     }
   }
