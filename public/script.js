@@ -97,11 +97,11 @@ document.addEventListener("DOMContentLoaded", function() {
               mainText += `<div>${cellData.contents.join("</div><div>")}</div>`;
             }
             return `
-              <div style="text-align:center; font-family: sans-serif;">
+              <div style="text-align:center; font-family: sans-serif; width: 100%; height: 100%;">
                 <div style="color:${style.topBarColor}; font-weight:bold; margin-bottom:20px;">
                   ${style.topLabel}
                 </div>
-                <div style="display:inline-block; position:relative;">
+                <div style="display:block; position:relative; width:100%;">
                   <div style="background-color:${style.topBarColor};
                               width:100%;
                               height:20px;
@@ -123,7 +123,8 @@ document.addEventListener("DOMContentLoaded", function() {
                               border:1px solid ${style.topBarColor};
                               border-bottom-left-radius:5px;
                               border-bottom-right-radius:5px;
-                              min-width:150px;">
+                              width:100%;
+                              box-sizing: border-box;">
                     ${mainText}
                   </div>
                 </div>
