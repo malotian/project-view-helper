@@ -138,6 +138,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function updatePreview() {
     const yamlText = codeMirrorEditor.getValue();
+    // Get error container element
+    const errorElem = document.getElementById("errorMessage");
     try {
       const data = jsyaml.load(yamlText);
       if (data) {
@@ -147,13 +149,15 @@ document.addEventListener("DOMContentLoaded", function() {
           table.setColumns(columns);
         }
         table.setData(transformedRows);
+        // Clear any previous error messages
+        if (errorElem) errorElem.innerHTML = "";
       } else {
         table.clearData();
-        document.getElementById("wbs-table").innerHTML = "<p>No 'sprints' key found in YAML data.</p>";
+        if (errorElem) errorElem.textContent = "No 'sprint' found in YAML data.";
       }
     } catch (e) {
       table.clearData();
-      document.getElementById("wbs-table").innerHTML = "<p class='text-danger'>Invalid YAML: " + e.message + "</p>";
+      if (errorElem) errorElem.innerHTML = "<p class='text-danger'>Invalid YAML: " + e.message + "</p>";
     }
   }
 
@@ -161,6 +165,15 @@ document.addEventListener("DOMContentLoaded", function() {
   codeMirrorEditor.on("change", function() {
     updatePreview();
   });
+
+  // Load sample YAML from data.yaml and set it in the CodeMirror editor
+  fetch("test/data.yaml")
+    .then(response => response.text())
+    .then(text => {
+      codeMirrorEditor.setValue(text);
+      updatePreview();
+    })
+    .catch(error => console.error("Error loading sample YAML:", error));
 
   let isDragging = false;
   divider.addEventListener("mousedown", function(e) {
