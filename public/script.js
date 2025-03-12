@@ -85,6 +85,56 @@ document.addEventListener("DOMContentLoaded", function() {
     };
   
     const style = colorMap[cellData.type] || fallback;
+  
+    // Mapping flag values to Font Awesome icon classes
+    const flagIconMap = {
+      in_progress: "fa-gear",
+      completed: "fa-check",
+      blocked_by_vendor: "fa-xmark",
+      waiting_on_customer: "fa-stopwatch",
+      scope_added: "fa-plus",
+      completed_alternative: "fa-circle-check",
+      verified: "fa-square-check",
+      goal_achieved: "fa-bullseye",
+    };
+  
+    // Limit to a maximum of two icons (left & right)
+    let leftIconHTML = "";
+    let rightIconHTML = "";
+  
+    if (cellData.flag && Array.isArray(cellData.flag)) {
+      if (cellData.flag.length >= 1) {
+        const rightIconClass = flagIconMap[cellData.flag[0]] || "";
+        if (rightIconClass) {
+          rightIconHTML = `
+            <span class="fa-stack" 
+                  style="position: absolute; 
+                         top: 50%; 
+                         right: 8px; 
+                         transform: translate(0, -50%); 
+                         font-size:1.5em; 
+                         z-index: 10;">
+              <i class="fa-solid ${rightIconClass} fa-stack-2x"></i>
+            </span>`;
+        }
+      }
+      if (cellData.flag.length >= 2) {
+        const leftIconClass = flagIconMap[cellData.flag[1]] || "";
+        if (leftIconClass) {
+          leftIconHTML = `
+            <span class="fa-stack" 
+                  style="position: absolute; 
+                         top: 50%; 
+                         left: 8px; 
+                         transform: translate(0, -50%); 
+                         font-size:1.5em; 
+                         z-index: 10;">
+              <i class="fa-solid ${leftIconClass} fa-stack-2x"></i>
+            </span>`;
+        }
+      }
+    }
+  
     let mainText = "";
     if (cellData.label) {
       mainText += `<div style="font-weight:bold;">${cellData.label}</div>`;
@@ -94,17 +144,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   
     return `
-      <div style="text-align:center; font-family: sans-serif; width: 100%; height: 100%;">
+      <div style="position: relative; text-align:center; font-family: sans-serif; width: 100%; height: 100%;">
         <div style="color:${style.topBarColor}; font-weight:bold; margin-bottom:20px;">
           ${style.topLabel}
         </div>
         <div style="display:block; position:relative; width:100%;">
+          <!-- Dark header bar with overflow: visible to avoid icon clipping -->
           <div style="background-color:${style.topBarColor};
                       width:100%;
-                      height:20px;
+                      height:24px; /* Increased height to accommodate icons */
                       border-top-left-radius:5px;
                       border-top-right-radius:5px;
-                      position:relative;">
+                      position:relative;
+                      overflow: visible;">
+            ${leftIconHTML}
+            ${rightIconHTML}
             <div style="width:0;
                         height:0;
                         border-left:10px solid transparent;
@@ -128,6 +182,8 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     `;
   }
+  
+  
   
   function generateColumns(rowObj) {
     let columns = [];

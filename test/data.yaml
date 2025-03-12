@@ -5,31 +5,45 @@
         - "CM Platform"
         - "Sharepoint Site"
       type: platform
+      flag:
+        - in_progress
     - label: "Architecture"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: platform
+      flag:
+        - completed
+        - waiting_on_customer
     - label: "PMO"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: platform
+      flag:
+        - blocked_by_vendor
     - label: "Offerings"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: platform
+      flag:
+        - scope_added
     - label: "Products & Services"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: platform
+      flag:
+        - in_progress
+        - blocked_by_vendor
     - label: "Reqs. Complete"
       contents:
         - "Project Documentation"
         - "Sharepoint Page"
       type: milestone
+      flag:
+        - waiting_on_customer
 
 - type: sprint
   items:
@@ -38,21 +52,31 @@
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - completed
+        - scope_added
     - label: "Program Visualization"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - in_progress
     - label: "Customer Portal"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: platform
+      flag:
+        - blocked_by_vendor
+        - waiting_on_customer
     - label: "High Level Design"
       contents:
         - "Project Documentation"
         - "Sharepoint Page"
       type: milestone
+      flag:
+        - completed
 
 - type: sprint
   items:
@@ -61,21 +85,30 @@
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - in_progress
     - label: "RCA Output"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - completed
+        - blocked_by_vendor
     - label: "Reviewer"
       contents:
         - "Knowledge Mgmt Role"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - scope_added
     - label: "Contributor"
       contents:
         - "Knowledge Mgmt Role"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - waiting_on_customer
 
 - type: sprint
   items:
@@ -84,21 +117,31 @@
         - "Knowledge Mgmt Process"
         - "Use Case"
       type: usecase
+      flag:
+        - in_progress
+        - completed
     - label: "Review RCA"
       contents:
         - "Knowledge Mgmt Process"
         - "Use Case"
       type: usecase
+      flag:
+        - blocked_by_vendor
     - label: "Knowledge States"
       contents:
         - "Knowledge Feature"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - completed
     - label: "Release 1"
       contents:
         - "Framework Release"
         - "30 Days - Fixed"
       type: implementation
+      flag:
+        - waiting_on_customer
+        - scope_added
 
 - type: sprint
   items:
@@ -107,16 +150,23 @@
         - "Knowledge Mgmt Role"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - in_progress
     - label: "Taxanomic Index"
       contents:
         - "Knowledge Feature"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - completed
+        - blocked_by_vendor
     - label: "Project Site Template"
       contents:
         - "CM Platform"
         - "Sharepoint Site Template"
       type: platform
+      flag:
+        - waiting_on_customer
 
 - type: sprint
   items:
@@ -125,21 +175,31 @@
         - "Knowledge Feature"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - in_progress
+        - scope_added
     - label: "SRT Results"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - completed
     - label: "Peer Review Results"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - in_progress
     - label: "Self-Paced Training"
       contents:
         - "Project Documentation"
         - "Sharepoint Page"
       type: milestone
+      flag:
+        - blocked_by_vendor
+        - waiting_on_customer
 
 - type: sprint
   items:
@@ -148,6 +208,8 @@
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - completed
 
 - type: sprint
   items:
@@ -156,26 +218,39 @@
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - in_progress
+        - blocked_by_vendor
     - label: "Narrative"
       contents:
         - "Knowledge Mgmt Feature"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - in_progress
+        - scope_added
     - label: "Platform Alignment"
       contents:
         - "Knowledge Mgmt Role"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - scope_added
     - label: "Thought Leadership Artifact"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - waiting_on_customer
+        - in_progress
     - label: "Release 2"
       contents:
         - "Features Release"
         - "60 Days - Fixed"
       type: implementation
+      flag:
+        - completed
 
 - type: sprint
   items:
@@ -184,21 +259,31 @@
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - completed
+        - scope_added
     - label: "Project Visualization"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - in_progress
     - label: "Customer Read-In Packet"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - blocked_by_vendor
     - label: "Platform Specific Guidance"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
+      flag:
+        - completed
+        - waiting_on_customer
 
 - type: sprint
   items:
@@ -207,26 +292,38 @@
         - "Knowledge Mgmt Role"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - in_progress
     - label: "Depricate GP Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - completed
+        - blocked_by_vendor
     - label: "Update GP Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - waiting_on_customer
     - label: "New GP Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - completed
     - label: "Release 3"
       contents:
         - "Features Release"
         - "75 Days - Fixed"
       type: implementation
+      flag:
+        - in_progress
+        - scope_added
 
 - type: sprint
   items:
@@ -235,21 +332,31 @@
         - "Knowledge Reference"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - blocked_by_vendor
     - label: "Update PSG Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - completed
+        - in_progress
     - label: "New PSG Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - waiting_on_customer
     - label: "Update Terminology Request"
       contents:
         - "Knowledge Mgmt Process"
         - "Use Case"
       type: usecase
+      flag:
+        - scope_added
+        - completed
 
 - type: sprint
   items:
@@ -258,28 +365,43 @@
         - "Knowledge Mgmt Process"
         - "Use Case"
       type: usecase
+      flag:
+        - in_progress
     - label: "Visual Design Standard"
       contents:
         - "Style Guide"
         - "Sharepoint Page"
       type: feature
+      flag:
+        - blocked_by_vendor
+        - waiting_on_customer
     - label: "Deprecate PSG Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - completed
     - label: "Update CRP Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - in_progress
+        - scope_added
     - label: "New CRP Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
+      flag:
+        - waiting_on_customer
     - label: "Release 4"
       contents:
         - "Features Release"
         - "90 Days - Fixed"
       type: implementation
+      flag:
+        - completed
+        - blocked_by_vendo
