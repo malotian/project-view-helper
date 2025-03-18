@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Initialize CodeMirror on the textarea for YAML editing
   const yamlTextarea = document.getElementById("yamlInput");
   const codeMirrorEditor = CodeMirror.fromTextArea(yamlTextarea, {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     headerVisible: false,
     layout: "fitColumns",
   });
- 
+
   let table2 = new Tabulator("#wbs2-table", {
     data: [],
     headerVisible: false,
@@ -77,15 +77,15 @@ document.addEventListener("DOMContentLoaded", function() {
       feature: { topLabel: "Feature", topBarColor: "#B399C3", backgroundColor: "#F2EDF6" },
       implementation: { topLabel: "Implementation", topBarColor: "#C1483C", backgroundColor: "#FDE8E8" },
     };
-  
+
     const fallback = {
       topLabel: cellData.type || "",
       topBarColor: "#999",
       backgroundColor: "#f9f9f9",
     };
-  
+
     const style = colorMap[cellData.type] || fallback;
-  
+
     // Mapping flag values to Font Awesome icon classes
     const flagIconMap = {
       in_progress: "fa-gear",
@@ -93,48 +93,66 @@ document.addEventListener("DOMContentLoaded", function() {
       blocked_by_vendor: "fa-xmark",
       waiting_on_customer: "fa-stopwatch",
       scope_added: "fa-plus",
+      scope_reduced: "fa-minus",
       completed_alternative: "fa-circle-check",
       verified: "fa-square-check",
       goal_achieved: "fa-bullseye",
     };
-  
-    // Limit to a maximum of two icons (left & right)
+
     let leftIconHTML = "";
     let rightIconHTML = "";
-  
+
+    // Arrays to hold flags for left (plus/minus) and right (all others)
+    let leftArray = [];
+    let rightArray = [];
+
+    // Ensure cellData.flag exists and is an array
     if (cellData.flag && Array.isArray(cellData.flag)) {
-      if (cellData.flag.length >= 1) {
-        const rightIconClass = flagIconMap[cellData.flag[0]] || "";
-        if (rightIconClass) {
-          rightIconHTML = `
-            <span class="fa-stack" 
-                  style="position: absolute; 
-                         top: 50%; 
-                         right: 8px; 
-                         transform: translate(0, -50%); 
-                         font-size:1.5em; 
-                         z-index: 10;">
-              <i class="fa-solid ${rightIconClass} fa-stack-2x"></i>
-            </span>`;
+      // Loop through the flags to partition them
+      cellData.flag.forEach(flag => {
+        if (flag === "scope_added" || flag === "scope_reduced") {
+          leftArray.push(flag);
+        } else {
+          rightArray.push(flag);
         }
-      }
-      if (cellData.flag.length >= 2) {
-        const leftIconClass = flagIconMap[cellData.flag[1]] || "";
+      });
+
+      // Generate the left icon from the first element in leftArray (if exists)
+      if (leftArray.length > 0) {
+        const leftIconClass = flagIconMap[leftArray[0]] || "";
         if (leftIconClass) {
           leftIconHTML = `
-            <span class="fa-stack" 
-                  style="position: absolute; 
-                         top: 50%; 
-                         left: 8px; 
-                         transform: translate(0, -50%); 
-                         font-size:1.5em; 
-                         z-index: 10;">
-              <i class="fa-solid ${leftIconClass} fa-stack-2x"></i>
-            </span>`;
+        <span class="fa-stack"
+              style="position: absolute;
+                     top: 50%;
+                     left: 8px;
+                     transform: translate(0, -50%);
+                     font-size: 1.5em;
+                     z-index: 10;">
+          <i class="fa-solid ${leftIconClass} fa-stack-2x"></i>
+        </span>`;
+        }
+      }
+
+      // Generate the right icon from the first element in rightArray (if exists)
+      if (rightArray.length > 0) {
+        const rightIconClass = flagIconMap[rightArray[0]] || "";
+        if (rightIconClass) {
+          rightIconHTML = `
+        <span class="fa-stack"
+              style="position: absolute;
+                     top: 50%;
+                     right: 8px;
+                     transform: translate(0, -50%);
+                     font-size: 1.5em;
+                     z-index: 10;">
+          <i class="fa-solid ${rightIconClass} fa-stack-2x"></i>
+        </span>`;
         }
       }
     }
-  
+
+
     let mainText = "";
     if (cellData.label) {
       mainText += `<div style="font-weight:bold;">${cellData.label}</div>`;
@@ -142,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (cellData.contents && Array.isArray(cellData.contents)) {
       mainText += `<div>${cellData.contents.join("</div><div>")}</div>`;
     }
-  
+
     return `
       <div style="position: relative; text-align:center; font-family: sans-serif; width: 100%; height: 100%;">
         <div style="color:${style.topBarColor}; font-weight:bold; margin-bottom:20px;">
@@ -182,9 +200,9 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     `;
   }
-  
-  
-  
+
+
+
   function generateColumns(rowObj) {
     let columns = [];
     for (let key in rowObj) {
@@ -194,13 +212,13 @@ document.addEventListener("DOMContentLoaded", function() {
         columns.push({
           title: key,
           field: key,
-          formatter: function(cell) {
+          formatter: function (cell) {
             const cellData = cell.getValue();
             if (!cellData) return "";
             return formatCellContent(cellData);
           },
           // Using Tabulator's tooltip callback to return a custom HTML tooltip
-          tooltip: function(e, cell, onRendered) {
+          tooltip: function (e, cell, onRendered) {
             const cellData = cell.getValue();
             if (!cellData) return "";
             // Wrap the formatted content in a container that scales the font size to 150%
@@ -211,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     return columns;
   }
-  
+
 
   function updatePreview() {
     const yamlText = codeMirrorEditor.getValue();
@@ -248,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Update preview when CodeMirror content changes (with debounce for performance)
-  codeMirrorEditor.on("change", function() {
+  codeMirrorEditor.on("change", function () {
     updatePreview();
   });
 
@@ -262,13 +280,13 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error("Error loading sample YAML:", error));
 
   let isDragging = false;
-  divider.addEventListener("mousedown", function(e) {
+  divider.addEventListener("mousedown", function (e) {
     if (leftPane.classList.contains("collapsed")) return;
     isDragging = true;
     document.body.style.cursor = "col-resize";
   });
 
-  document.addEventListener("mousemove", function(e) {
+  document.addEventListener("mousemove", function (e) {
     if (!isDragging) return;
     let containerOffsetLeft = document.getElementById("container").offsetLeft;
     let pointerRelativeXpos = e.clientX - containerOffsetLeft;
@@ -280,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function() {
     rightPane.style.width = (100 - leftWidthPercent - 4) + "%"; // account for divider width
   });
 
-  document.addEventListener("mouseup", function() {
+  document.addEventListener("mouseup", function () {
     if (isDragging) {
       isDragging = false;
       document.body.style.cursor = "default";
@@ -288,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Toggle collapse/expand with arrow icons using Font Awesome
-  toggleBtn.addEventListener("click", function() {
+  toggleBtn.addEventListener("click", function () {
     if (leftPane.classList.contains("collapsed")) {
       // Expand left pane
       leftPane.classList.remove("collapsed");

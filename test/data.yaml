@@ -6,6 +6,7 @@
         - "Sharepoint Site"
       type: platform
       flag:
+        - scope_added
         - in_progress
     - label: "Architecture"
       contents:
@@ -13,6 +14,7 @@
         - "Sharepoint Site"
       type: platform
       flag:
+        - scope_reduced
         - completed
         - waiting_on_customer
     - label: "PMO"
@@ -21,6 +23,7 @@
         - "Sharepoint Site"
       type: platform
       flag:
+        - scope_reduced
         - blocked_by_vendor
     - label: "Offerings"
       contents:
@@ -35,6 +38,7 @@
         - "Sharepoint Site"
       type: platform
       flag:
+        - scope_reduced
         - in_progress
         - blocked_by_vendor
     - label: "Reqs. Complete"
@@ -43,6 +47,7 @@
         - "Sharepoint Page"
       type: milestone
       flag:
+        - scope_added
         - waiting_on_customer
 
 - type: sprint
@@ -61,6 +66,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - in_progress
     - label: "Customer Portal"
       contents:
@@ -68,6 +74,7 @@
         - "Sharepoint Site"
       type: platform
       flag:
+        - scope_added
         - blocked_by_vendor
         - waiting_on_customer
     - label: "High Level Design"
@@ -76,6 +83,7 @@
         - "Sharepoint Page"
       type: milestone
       flag:
+        - scope_reduced
         - completed
 
 - type: sprint
@@ -86,6 +94,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - in_progress
     - label: "RCA Output"
       contents:
@@ -93,6 +102,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_added
         - completed
         - blocked_by_vendor
     - label: "Reviewer"
@@ -108,6 +118,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_reduced
         - waiting_on_customer
 
 - type: sprint
@@ -118,6 +129,7 @@
         - "Use Case"
       type: usecase
       flag:
+        - scope_added
         - in_progress
         - completed
     - label: "Review RCA"
@@ -126,6 +138,7 @@
         - "Use Case"
       type: usecase
       flag:
+        - scope_reduced
         - blocked_by_vendor
     - label: "Knowledge States"
       contents:
@@ -133,6 +146,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_reduced
         - completed
     - label: "Release 1"
       contents:
@@ -151,6 +165,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_reduced
         - in_progress
     - label: "Taxanomic Index"
       contents:
@@ -158,6 +173,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_added
         - completed
         - blocked_by_vendor
     - label: "Project Site Template"
@@ -166,6 +182,7 @@
         - "Sharepoint Site Template"
       type: platform
       flag:
+        - scope_reduced
         - waiting_on_customer
 
 - type: sprint
@@ -184,6 +201,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - completed
     - label: "Peer Review Results"
       contents:
@@ -191,6 +209,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_added
         - in_progress
     - label: "Self-Paced Training"
       contents:
@@ -198,6 +217,7 @@
         - "Sharepoint Page"
       type: milestone
       flag:
+        - scope_reduced
         - blocked_by_vendor
         - waiting_on_customer
 
@@ -209,6 +229,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_added
         - completed
 
 - type: sprint
@@ -219,6 +240,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - in_progress
         - blocked_by_vendor
     - label: "Narrative"
@@ -242,6 +264,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - waiting_on_customer
         - in_progress
     - label: "Release 2"
@@ -250,6 +273,7 @@
         - "60 Days - Fixed"
       type: implementation
       flag:
+        - scope_added
         - completed
 
 - type: sprint
@@ -260,14 +284,15 @@
         - "Sharepoint Site"
       type: usecase
       flag:
-        - completed
         - scope_added
+        - completed
     - label: "Project Visualization"
       contents:
         - "Knowledge Type"
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - in_progress
     - label: "Customer Read-In Packet"
       contents:
@@ -275,6 +300,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_added
         - blocked_by_vendor
     - label: "Platform Specific Guidance"
       contents:
@@ -282,6 +308,7 @@
         - "Sharepoint Page Template"
       type: type
       flag:
+        - scope_reduced
         - completed
         - waiting_on_customer
 
@@ -293,6 +320,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_reduced
         - in_progress
     - label: "Depricate GP Artifact"
       contents:
@@ -300,6 +328,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_added
         - completed
         - blocked_by_vendor
     - label: "Update GP Artifact"
@@ -308,6 +337,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_reduced
         - waiting_on_customer
     - label: "New GP Artifact"
       contents:
@@ -315,6 +345,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_added
         - completed
     - label: "Release 3"
       contents:
@@ -322,8 +353,8 @@
         - "75 Days - Fixed"
       type: implementation
       flag:
-        - in_progress
         - scope_added
+        - in_progress
 
 - type: sprint
   items:
@@ -333,6 +364,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_reduced
         - blocked_by_vendor
     - label: "Update PSG Artifact"
       contents:
@@ -340,6 +372,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_added
         - completed
         - in_progress
     - label: "New PSG Artifact"
@@ -348,6 +381,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_reduced
         - waiting_on_customer
     - label: "Update Terminology Request"
       contents:
@@ -366,6 +400,7 @@
         - "Use Case"
       type: usecase
       flag:
+        - scope_reduced
         - in_progress
     - label: "Visual Design Standard"
       contents:
@@ -373,6 +408,7 @@
         - "Sharepoint Page"
       type: feature
       flag:
+        - scope_added
         - blocked_by_vendor
         - waiting_on_customer
     - label: "Deprecate PSG Artifact"
@@ -381,6 +417,7 @@
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_reduced
         - completed
     - label: "Update CRP Artifact"
       contents:
@@ -388,14 +425,15 @@
         - "Sharepoint Site"
       type: usecase
       flag:
-        - in_progress
         - scope_added
+        - in_progress
     - label: "New CRP Artifact"
       contents:
         - "CM Platform"
         - "Sharepoint Site"
       type: usecase
       flag:
+        - scope_reduced
         - waiting_on_customer
     - label: "Release 4"
       contents:
@@ -403,5 +441,6 @@
         - "90 Days - Fixed"
       type: implementation
       flag:
+        - scope_added
         - completed
-        - blocked_by_vendo
+        - blocked_by_vendor
